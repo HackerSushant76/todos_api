@@ -8,6 +8,7 @@ const {
   getTodos,
   getTodoById,
 } = require("./controllers/todos.controllers");
+const { userSignup, userLogin } = require("./controllers/user.controller");
 require("dotenv").config();
 const PORT = process.env.PORT || 3000;
 const app = express();
@@ -18,6 +19,10 @@ app.use(cors());
 app.get("/", (req, res) => {
   res.send("hii from backend");
 });
+
+app.post("/signup", userSignup);
+
+app.post("/login", userLogin);
 
 app.get("/todos", getTodos);
 
