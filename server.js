@@ -9,6 +9,7 @@ const {
   getTodoById,
 } = require("./controllers/todos.controllers");
 const { userSignup, userLogin } = require("./controllers/user.controller");
+const authentication = require("./middlewares/Authentication");
 require("dotenv").config();
 const PORT = process.env.PORT || 3000;
 const app = express();
@@ -24,10 +25,10 @@ app.post("/signup", userSignup);
 
 app.post("/login", userLogin);
 
-app.get("/todos", getTodos);
+app.get("/todos", authentication, getTodos);
 
-app.get("/todos/:id", getTodoById);
-app.post("/todos/create", addTodo);
+app.get("/todos/:id", authentication, getTodoById);
+app.post("/todos/create", authentication, addTodo);
 
 app.patch("/todos/:todoId", updateTodo);
 
