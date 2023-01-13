@@ -1,7 +1,8 @@
 const { Todo } = require("../models/todos.model");
 
 const getTodos = async (req, res) => {
-  const todos = await Todo.find();
+  const {date} = req.query
+  const todos = await Todo.find({date});
   res.send(todos);
 };
 
@@ -12,8 +13,8 @@ const getTodoById = async (req, res) => {
   }
 
 const addTodo = async (req, res) => {
-  const { title, status } = req.body;
-  const todo = new Todo({ title, status });
+  const { title, status, date } = req.body;
+  const todo = new Todo({ title, status,date });
   await todo.save();
   res.send("Todos added successfully");
 };
